@@ -1,0 +1,6 @@
+Jeœli ban, zapisujê w tabeli czas w sekundach. Przy ka¿dej próbie logowania, odejmujê od aktualnego czasu, czas z bana.
+Jeœli ró¿nica np. wiêksza ni¿ 3 minuty to lecimy z logowaniem. 
+
+
+Ostatnie:
+Pomys³ - robimy tablicê z sesjami, przy logowaniu wrzucamy tam username i ip, przy wylogowaniu - wywalamy je¿eli jakaœ user ma aktualnie 

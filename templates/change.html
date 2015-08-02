@@ -1,0 +1,17 @@
+﻿{% extends "layout.html" %}
+{% block body %}
+  <h2>Zmień hasło</h2>
+  {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+  <form action="{{ url_for('change') }}" method=post>
+  <input name=_csrf_token type=hidden value="{{ csrf_token() }}">
+    <dl>
+	<dt>Stare hasło:
+	<dd><input type=password name=oldPassword>
+      <dt>Nowe hasło:
+      <dd><input id=password oninput=entropy() type=password name=newPassword>
+      <span id=entr style=color:#009688>siła hasła: brak</span>
+      <dd><input type=password name=newPassword2>
+      <dd><input type=submit value=Zamień>
+    </dl>
+  </form>
+{% endblock %}

@@ -1,0 +1,19 @@
+﻿{% extends "layout.html" %}
+{% block body %}
+  <h2>Login</h2>
+  {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+  {% if dev %}<p class=dev><strong>Dev:</strong> {{ dev }}{% endif %}
+  <form action="{{ url_for('login') }}" method=post>
+      <input name=_csrf_token type=hidden value="{{ csrf_token() }}">
+    <dl>
+      <dt>Login:
+      <dd><input type=text name=username>
+      <dt>Hasło:
+      <dd><input type=password name=password>
+      <dd><input type=submit value=Loguj>
+    </dl>
+      <div class=metanav>
+    <a href="{{ url_for('remind') }}">Zapomniałem hasła</a>
+  </div>
+  </form>
+{% endblock %}

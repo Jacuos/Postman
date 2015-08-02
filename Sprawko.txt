@@ -1,0 +1,17 @@
+1. Przy logowaniu i rejestracji, login i has³o musz¹ siê sk³adaæ wy³¹cznie z liter i cyfr. Podobnie sprawdzany jest e-mail. Funkcja re.match() i wyra¿enia regularne.
+2.Rejestracja - haszowanie has³a: Funkcj¹ random_string(n) generujemy ci¹g 8 losowych znaków (ma³e litery i cyfry). Losowy ci¹g i niezakodowane has³o wrzucamy do hash_string(text, salt). Do hashlib.md5() wrzucamy has³o i sól(losowy ciag) jako strumienie bitowe(encode); hexdigest() zapisuje hasz haksadecymalnie. Przy logowaniu, haszujemy wpisane has³o i porównujemy z tym w bazie danych
+3.Przy pomocy jninja2.utils.escape(), zamieniamy niebezpieczne znaki takie jak ' " < > na bezpieczne zamienniki (html escaping) np. &lt, &gt
+4. Certyfikat podpisany tak jak na zajêciach z https/ssl
+5.W ka¿dym formularzu jest hidden field, zawieraj¹cy wartoœæ tokena. Dziêki dekoratorowi @app.before_request, przed ka¿dym zapytaniem do serwera odpalana jest funkcja która sprawdza czy token w sesji jest taki sam jak w polu formularza. Tokeny s¹ generowane inne dla ka¿dego zapytania!!! - jako zmienna globalna podana jest sama funkcja a nie konkretna wartoœæ!!!! xD
+6. Zrobi³em pêtlê, teraz haszuje 10 razy. Z tym ¿e sól zawsze ta sama, ciekawe czy tak jest ok.
+7.Po 5 nieudanych próbach- ban na ip. Zapisuje iloœæ prób i czas kiedy by³ ban. Za ka¿dym razem sprawdzamy - jeœli minê³y 2 minuty i by³o ponad 5 prób - zerujemy iloœæ prób i czas - cofamy bana. Jeœli od ostatniego logowania minê³o 30 minut - iloœæ prób i czas te¿ siê zeruje (Nie chcemy by bana dosta³ ktoœ za pomy³kê sprzed tygodnia i miesi¹ca)
+8.Ka¿de logowanie które nie pochodzi z bana i jest poprawne znakowo, jest opóŸnione o 2 sekundy time.sleep(2).
+9. Liczymy entropiê maksymaln¹ - wyœwietlamy komunikat i liczbê
+10.Wysy³amy maila z url w ktróym jest id usera i sól z has³a. Jak siê dane zgadzaj¹ to mo¿e has³o zmieniæ
+11.Jesli jesteœmy zalogowani, mo¿emy zmieniæ has³o - trzeba podaæ stare i 2 razy wpisac nowe. Oczywiœcie walidacja pól, wpisane stare has³o musi byæ takie samo jak to wczytane z bazy danych
+12. Doda³em tabelê wszystkich sesji - nazwa u¿ytkownika+ip s¹ tam wrzucane przy logowaniu i kasowane przy wylogowaniu. Podczas logowania, je¿eli sesja takiego u¿ytkownika ju¿ istnieje, dostaje on maila o potencjalnym niebezpieczeñstwie. Jest tam data,godzina i 2 IP.
+
+WA¯NE!!! - uruchomienie na nowo apki chyba pokasuje wszystkie otwarte sesje - secret_key jest nowy losowany, wiêc stare sesje maj¹ niewa¿ny podpis.
+
+hidden fields - lepsze - wysy³amy urserowi na podstronê a potem user przy ka¿dym ¿adaniu wysy³a je serwerowi albo podanie tokenu w cookie (owasp)
+licz entropiê maksymaln¹ has³a! (paseczek)

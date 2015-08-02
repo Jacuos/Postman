@@ -1,0 +1,22 @@
+﻿{% extends "layout.html" %}
+{% block body %}
+  {% if session.logged_in %}
+    <form action="{{ url_for('add_entry') }}" method=post class=add-entry>
+    <input name=_csrf_token type=hidden value="{{ csrf_token() }}">
+      <dl>
+        <dt>Tytuł:
+        <dd><input type=text size=30 name=title>
+        <dt>Tekst:
+        <dd><textarea name=text rows=5 cols=40></textarea>
+        <dd><input type=submit value=Wyślij>
+      </dl>
+    </form>
+  {% endif %}
+  <ul class=entries>
+  {% for entry in entries %}
+    <li><h2>{{ entry.username }}  -  {{ entry.title }}</h2>{{ entry.text|safe }}
+  {% else %}
+    <li><em>Ojej. Nie ma żadnych wpisów.</em>
+  {% endfor %}
+  </ul>
+{% endblock %}

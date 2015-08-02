@@ -1,0 +1,32 @@
+﻿<!doctype html>
+<title>Postman</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+<div class=page>
+  <h1>Postman</h1>
+  {% if session.logged_in %}
+	<div class=name>
+		Zalogowano jako: {{session.username}}
+	</div>
+  {% endif %}
+    {% if session.info %}
+	<div class=error>
+		Dev: {{session.info}}
+	</div>
+  {% endif %}
+  <div class=metanav>
+  {% if not session.logged_in %}
+    <a href="{{ url_for('login') }}">Zaloguj się</a>
+  {% else %}
+    <a href="{{ url_for('logout') }}">Wyloguj się</a>
+    <a href="{{ url_for('change') }}">Zmień hasło</a>
+  {% endif %}
+  </div>
+  <div class=metanav>
+    <a href="{{ url_for('register') }}">Rejestracja</a>
+  </div>
+  {% for message in get_flashed_messages() %}
+    <div class=flash>{{ message }}</div>
+  {% endfor %}
+  {% block body %}{% endblock %}
+</div>
